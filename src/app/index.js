@@ -13,6 +13,7 @@ import {Provider} from "react-redux";
 import './assets/css/material-dashboard-react.css';
 import  {History}  from "utils";
 
+
 import indexRoutes from './routes/index.jsx';
 
 ReactDOM.render(<Provider store={store}>

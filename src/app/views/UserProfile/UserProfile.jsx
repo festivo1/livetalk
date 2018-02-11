@@ -45,7 +45,7 @@ class UserProfile extends React.Component{
                                         <ItemGrid xs={12} sm={12} md={4}>
                                             <CustomInput
                                                 labelText="Verify Password"
-                                                id="verity-password"
+                                                id="verify-password"
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}

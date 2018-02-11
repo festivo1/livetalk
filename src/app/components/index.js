@@ -65,6 +65,8 @@ import Table from './Table/Table.jsx';
 
 import Tasks from './Tasks/Tasks.jsx';
 
+import AddUser from './User/AddUser'
+
 
 // ##############################
 // // // Typography
@@ -91,4 +93,5 @@ export {
     Table,
     // Tasks
     Tasks,
+    AddUser
 };

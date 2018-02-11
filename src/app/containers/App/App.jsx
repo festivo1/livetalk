@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Auth,History} from "utils"
+import {PrivateRoute} from "utils"
 import {
     withStyles,
 } from 'material-ui';
@@ -32,7 +33,8 @@ const switchRoutes = (<Switch>
                 <Redirect from={prop.path} to={prop.to} key={key}/>
             );
         return (
-            <Route path={prop.path} component={prop.component} key={key}/>
+
+            <PrivateRoute path={prop.path} component={prop.component} key={key}/>
         );
     })
 }
@@ -63,6 +65,7 @@ class App extends React.Component{
     componentDidUpdate(){
         this.refs.mainPanel.scrollTop = 0;
     }
+
     render(){
         const { classes, ...rest } = this.props;
         return (

@@ -7,7 +7,6 @@ const Authorization = (allowedRoles) =>
         }
         render() {
             const roles  = localStorage.getItem("roles");
-            console.log(roles);
             if (allowedRoles.includes(roles)) {
                 return <WrappedComponent {...this.props} />
             } else {

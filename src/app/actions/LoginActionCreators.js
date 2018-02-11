@@ -2,7 +2,7 @@
 import constants from "../constants/user-constants"
 import UserAPI from "../api/UserAPI";
 import AlertActionCreators from "./AlertActionCreators";
-import  history  from '../utils/History';
+
 
 let LoginActionCreators = {
 
