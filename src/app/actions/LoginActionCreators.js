@@ -1,6 +1,7 @@
 
 import constants from "../constants/user-constants"
 import UserAPI from "../api/UserAPI";
+import {Auth,History} from "utils";
 import AlertActionCreators from "./AlertActionCreators";
 
 
@@ -12,7 +13,8 @@ let LoginActionCreators = {
             UserAPI.login(username,password).then(
                 (user) => {
                         dispatch({type: constants.LOGIN_SUCCESS, success:true, user});
-                        history.push('/dashboard')
+                        Auth.setSession(user);
+                        History.push('/dashboard')
                 },
                 (error) => {
                     console.log(error);

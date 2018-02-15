@@ -1,5 +1,5 @@
 import "whatwg-fetch"
-import Auth from "../utils/Auth"
+import {Auth} from "utils"
 let UserAPI = {
 
     login(username, password){
@@ -16,12 +16,25 @@ let UserAPI = {
                 return response.json();
             })
             .then(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user["access_token"]) {
-                    // store User details and jwt token in local storage to keep User logged in between page refreshes
-                    Auth.setSession(user);
-                }
                 return user;
+            });
+    },
+
+    addUser(values){
+        const requestOptions = {
+            method: 'POST',
+            headers: Auth.fetchToken(),
+            body: JSON.stringify(values)
+        }
+        return fetch('http://localhost/janus/api/user', requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    return Promise.reject(response.statusText);
+                }
+                return response;
+            })
+            .then(response => {
+                return response;
             });
     }
 }

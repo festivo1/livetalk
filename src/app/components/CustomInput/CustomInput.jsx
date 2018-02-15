@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    withStyles, FormControl, InputLabel, Input
+    withStyles, FormControl, InputLabel, Input, FormHelperText
 } from 'material-ui';
 import {
     Clear, Check
@@ -11,12 +11,12 @@ import { customInputStyle } from 'variables';
 
 class CustomInput extends React.Component {
   render() {
-      const {input,classes, formControlProps, labelText, id, labelProps,inputRef, inputProps, error, success,meta} = this.props;
+      const {input,classes, formControlProps, labelText, id, labelProps,inputRef, inputProps,meta} = this.props;
       return (
         <FormControl {...formControlProps} className={classes.formControl}>
             {labelText !== undefined ? (<InputLabel
                 classes={{
-                    root: classes.labelRoot + (error ? " " + classes.labelRootError:success ? " " + classes.labelRootSuccess:""),
+                    root: classes.labelRoot + ((meta && meta.touched && meta.error) ? " " + classes.labelRootError:((meta && meta.touched && meta.valid)) ? " " + classes.labelRootSuccess:""),
                 }}
                 htmlFor={id}
                 {...labelProps}
@@ -28,7 +28,7 @@ class CustomInput extends React.Component {
                     root: (labelText !== undefined ? "":classes.marginTop),
                     disabled: classes.disabled,
                     underline: classes.underline,
-                    inkbar: (error ? classes.inkbarError:success ? classes.inkbarSuccess:classes.inkbar),
+                    inkbar: ((meta && meta.touched && meta.error) ? classes.inkbarError:(meta && meta.touched && meta.valid) ? classes.inkbarSuccess:classes.inkbar),
                 }}
                 id={id}
                 value={input?input.value:undefined}
@@ -36,7 +36,12 @@ class CustomInput extends React.Component {
                 inputRef={inputRef}
                 {...inputProps}
             />
-            {error ? <Clear className={classes.feedback + " " + classes.labelRootError}/>:success ? <Check className={classes.feedback + " " + classes.labelRootSuccess}/>:null}
+            {(meta && meta.touched && meta.error) ? <Clear className={classes.feedback + " " + classes.labelRootError}/>:(meta && meta.touched && meta.valid) ? <Check className={classes.feedback + " " + classes.labelRootSuccess}/>:null}
+            <FormHelperText
+                classes={{
+                    root: classes.labelRoot + ((meta && meta.touched && meta.error) ? " " + classes.labelRootError:((meta && meta.touched && meta.valid)) ? " " + classes.labelRootSuccess:""),
+                }}
+                id= {id?id+"-error-text":""}>{(meta && meta.touched && meta.error)? meta.error: ""}</FormHelperText>
         </FormControl>
     );
   }

@@ -58,6 +58,7 @@ import SnackbarContent from './Snackbar/SnackbarContent.jsx';
 // #############################
 
 import Table from './Table/Table.jsx';
+import Info from './Cards/Info';
 
 // ##############################
 // // // Tasks
@@ -71,6 +72,7 @@ import AddUser from './User/AddUser'
 // ##############################
 // // // Typography
 // #############################
+import UserList from "./User/UserList"
 
 export {
     // Cards
@@ -93,5 +95,7 @@ export {
     Table,
     // Tasks
     Tasks,
-    AddUser
+    Info,
+    AddUser,
+    UserList
 };

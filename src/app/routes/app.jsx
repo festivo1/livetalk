@@ -6,8 +6,6 @@ import {Authorization} from "utils"
 import {
     Dashboard, Person, ContentPaste
 } from 'material-ui-icons';
-
-
 const ROLE_ADMIN = ['ROLE_ADMIN'];
 const ROLE_USER = ['ROLE_USER'];
 const Admin = Authorization(ROLE_ADMIN);
@@ -26,10 +24,9 @@ const userRoutes = [
 ];
 
 const appRoutes = (() => {
-    if ( ROLE_ADMIN.includes(localStorage.getItem("roles")))
+    if ( ROLE_ADMIN.includes(localStorage.getItem("roles"))){
         return adminRoutes;
-    else{
-        console.log("Else invoke");
+    }else{
         return userRoutes;
     }
 

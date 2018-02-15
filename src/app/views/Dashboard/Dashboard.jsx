@@ -12,21 +12,15 @@ import { dashboardStyle } from 'variables';
 class Dashboard extends React.Component{
     constructor(){
         super();
-        this.state = {
-            value: 0,
-        };
     }
-    handleChange() {
-        this.setState({ value });
-    };
-
-    handleChangeIndex() {
-        this.setState({ value: index });
-    };
     render(){
         return (
             <div>
                 <h1>Welcome Dashboard</h1>
+                    <div>
+
+
+                    </div>
             </div>
         );
     }
