@@ -5,12 +5,12 @@ import {List,ListItem,ListItemText,Divider} from "material-ui"
 class UserList extends React.Component {
 
     render(){
-        const {firstName, email} = this.props;
+        const {email} = this.props;
         return (
             <div>
                 <List key={email} component="nav">
                     <ListItem button component="a" href="#simple-list">
-                        <ListItemText primary={firstName} />
+                        <ListItemText primary={email} />
                     </ListItem>
                 </List>
                 <Divider />

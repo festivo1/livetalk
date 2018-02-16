@@ -12,11 +12,14 @@ import {Provider} from "react-redux";
 
 import './assets/css/material-dashboard-react.css';
 import  {History}  from "utils";
+import { ThemeProvider } from '@livechat/ui-kit'
 
 
 import indexRoutes from './routes/index.jsx';
 
-ReactDOM.render(<Provider store={store}>
+ReactDOM.render(
+<ThemeProvider>
+        <Provider store={store}>
     <Router history={History}>
         <Switch>
             {
@@ -27,5 +30,5 @@ ReactDOM.render(<Provider store={store}>
                 })
             }
         </Switch>
-    </Router></Provider>
+    </Router></Provider></ThemeProvider>
     , document.getElementById('root'));
