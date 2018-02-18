@@ -13,11 +13,42 @@ import {
     RegularCard, Button, CustomInput, ItemGrid
 } from 'components';
 
+import {connect} from "react-redux"
+
+import {UserActionCreators} from "actions"
+import {UserList} from "components";
+import {Subscribe} from "utils";
+import update from 'immutability-helper';
+
 class Dashboard extends React.Component{
     constructor(){
         super();
     }
+
+    handleSubmit(){
+        console.log("Server sending");
+    }
+
+    componentDidMount(){
+        this.props.fetchUsers();
+        Subscribe.register([
+            {route: 'http://localhost/janus/topic/users', callback: this.updateList},
+        ]);
+
+    }
+
+    updateList = (data) => {
+         update(this.props.users, {$set: data});
+    }
+
+
+
     render(){
+
+        var userList = this.props.users.map((user) => {
+            return <UserList email={user}/>
+        });
+
         return (
             <div>
 
@@ -26,7 +57,7 @@ class Dashboard extends React.Component{
                             <Card>
                                 <div style={{height: 255, marginBottom:90}}>
                                     <MessageList active>
-                                        <MessageGroup onlyFirstWithMeta>
+                                        <MessageGroup>
                                             <Message
                                                 authorName="Jon Smith"
                                                 date="21:37"
@@ -38,26 +69,31 @@ class Dashboard extends React.Component{
                                                     The fastest way to help your customers - start chatting with visitors
                                                 </MessageText>
                                             </Message>
-
                                         </MessageGroup>
-                                        <MessageGroup onlyFirstWithMeta>
-                                            <Message date="21:38" isOwn={true} authorName="Visitor">
+                                        <MessageGroup>
+                                            <Message
+                                                authorName="Jon Smith"
+                                                date="21:37"
+                                                avatarUrl={
+                                                    'https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg'
+                                                }
+                                            >
                                                 <MessageText>
-                                                    I love them
+                                                    The fastest way to help your customers - start chatting with visitors
                                                 </MessageText>
-                                            </Message>
-                                            <Message date="21:38" isOwn={true} authorName="Visitor">
-                                                <MessageText>This helps me a lot</MessageText>
+                                                <MessageText>
+                                                    The fastest way to help your customers - start chatting with visitors
+                                                </MessageText>
                                             </Message>
                                         </MessageGroup>
                                     </MessageList>
-                                    <TextComposer>
+                                    <TextComposer onButtonClick={this.handleSubmit.bind(this)}>
                                         <Row align="center">
                                             <IconButton fit>
                                                 <AddIcon />
                                             </IconButton>
                                             <TextInput fill />
-                                            <SendButton fit />
+                                            <SendButton />
                                         </Row>
 
                                         <Row verticalAlign="center" justify="right">
@@ -70,7 +106,7 @@ class Dashboard extends React.Component{
                             </Card>
                         </ItemGrid>
                         <ItemGrid xs={12} sm={12} md={6}>
-
+                            {userList}
                         </ItemGrid>
                     </Grid>
             </div>
@@ -82,4 +118,18 @@ Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => (
+    {
+        users: state.users
+    }
+);
+
+const mapDispatchToProps = (dispatch) => (
+    {
+        fetchUsers: (values) => dispatch(
+            UserActionCreators.fetchUser()
+        )
+    }
+);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+

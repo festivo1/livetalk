@@ -18,6 +18,19 @@ let UserActionCreators = {
                 });
         }
     },
+    fetchUser(){
+        return (dispatch) => {
+            dispatch({ type: constants.FETCH_USER_REQUEST });
+            UserAPI.fetchUsers().then(
+                (response) => {
+                    dispatch({type: constants.FETCH_USER_SUCCESS, success:true, response});
+                },
+                (error) => {
+                    console.log(error);
+                    dispatch({ type: constants.FETCH_USER_FAILURE, success:false });
+                });
+        }
+    },
     close() {
         return {
             type: constants.USER_MESSAGE_CLOSE,

@@ -36,6 +36,23 @@ let UserAPI = {
             .then(response => {
                 return response;
             });
+    },
+
+    fetchUsers(){
+        const requestOptions = {
+            method: 'POST',
+            headers: Auth.fetchToken()
+        }
+        return fetch('http://localhost/janus/api/chat/users', requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    return Promise.reject(response.statusText);
+                }
+                return response.json();
+            })
+            .then(response => {
+                return response;
+            });
     }
 }
 
