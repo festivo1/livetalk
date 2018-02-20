@@ -32,13 +32,15 @@ class Dashboard extends React.Component{
     componentDidMount(){
         this.props.fetchUsers();
         Subscribe.register([
-            {route: 'http://localhost/janus/topic/users', callback: this.updateList},
+            {route: '/topic/users', callback: this.updateList},
         ]);
 
     }
 
     updateList = (data) => {
-         update(this.props.users, {$set: data});
+        if(localStorage.getItem("username") != data.body){
+            this.props.updateUsers(data.body);
+        }
     }
 
 
@@ -46,7 +48,9 @@ class Dashboard extends React.Component{
     render(){
 
         var userList = this.props.users.map((user) => {
-            return <UserList email={user}/>
+            if(user!=localStorage.getItem("username")){
+                return <UserList  key ={user} email={user}/>
+            }
         });
 
         return (
@@ -115,7 +119,7 @@ class Dashboard extends React.Component{
 }
 
 Dashboard.propTypes = {
-    classes: PropTypes.object.isRequired,
+    users: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => (
@@ -126,9 +130,13 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = (dispatch) => (
     {
-        fetchUsers: (values) => dispatch(
+        fetchUsers: () => dispatch(
             UserActionCreators.fetchUser()
+        ),
+        updateUsers:(values) => dispatch(
+            UserActionCreators.updateUser(values)
         )
+
     }
 );
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

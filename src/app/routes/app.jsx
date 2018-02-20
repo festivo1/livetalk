@@ -24,7 +24,7 @@ const userRoutes = [
 ];
 
 const appRoutes = (() => {
-    if ( ROLE_ADMIN.includes(localStorage.getItem("roles"))){
+    if ( ROLE_ADMIN.indexOf(localStorage.getItem("roles")) > -1){
         return adminRoutes;
     }else{
         return userRoutes;

@@ -18,6 +18,11 @@ let UserActionCreators = {
                 });
         }
     },
+    updateUser(response){
+        return (dispatch) => {
+            dispatch({ type: constants.UPDATE_USER_SUCCESS,response});
+        }
+    },
     fetchUser(){
         return (dispatch) => {
             dispatch({ type: constants.FETCH_USER_REQUEST });
