@@ -31,7 +31,7 @@ let UserAPI = {
                 if (!response.ok) {
                     return Promise.reject(response.statusText);
                 }
-                return response;
+                return response.json();
             })
             .then(response => {
                 return response;

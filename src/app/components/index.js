@@ -73,6 +73,7 @@ import AddUser from './User/AddUser'
 // // // Typography
 // #############################
 import UserList from "./User/UserList"
+import ChatMessage from "./Message/ChatMessage"
 
 export {
     // Cards
@@ -97,5 +98,5 @@ export {
     Tasks,
     Info,
     AddUser,
-    UserList
+    UserList,ChatMessage
 };

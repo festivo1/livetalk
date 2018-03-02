@@ -49,6 +49,7 @@ class AddUser extends React.Component {
 
     handleSubmit(values){
         const json = update(values,{$unset: ['verify_password']});
+        console.log(json);
         this.props.onSubmitUser(json);
     }
 

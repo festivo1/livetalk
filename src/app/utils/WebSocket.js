@@ -9,9 +9,9 @@ let subscribe = {
         const stompClient = Stomp.over(socket);
         stompClient.connect(Auth.fetchToken(), function(frame) {
             clients.map((register) => {
-                stompClient.subscribe(register.route, register.callback);
+                stompClient.subscribe(register.route, register.callback,Auth.fetchToken());
             })
-            stompClient.send("/app/messaging", {}, localStorage.getItem("username"));
+            stompClient.send("/app/messaging", Auth.fetchToken());
         });
     }
 }
