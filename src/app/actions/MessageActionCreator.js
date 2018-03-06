@@ -5,7 +5,7 @@ let MessageActionCreator = {
         return (dispatch) => {
             dispatch({ type: constants.FETCH_MESSAGE_REQUEST});
             MessageAPI.fetchMessage(creator,recipient).then(
-                (message) => {
+                (response) => {
                     dispatch({type: constants.FETCH_MESSAGE_SUCCESS, success:true, response});
                 },
                 (error) => {
@@ -32,6 +32,12 @@ let MessageActionCreator = {
                     console.log(error);
                     dispatch({ type: constants.SEND_MESSAGE_FAILURE, success:false });
                 });
+        }
+    },
+
+    receiveMessage(message){
+        return (dispatch) =>{
+            dispatch({type: constants.RECEIVE_MESSAGE,message});
         }
     }
 }

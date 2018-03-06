@@ -11,6 +11,7 @@ class ChatMessage extends React.Component {
                     <Message
                         authorName={message.creator}
                         date={message.date}
+                        isOwn={message.creator === localStorage.getItem("username")}
                         avatarUrl={
                             'https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg'
                         }

@@ -41,10 +41,10 @@ class Dashboard extends React.Component{
         var msg = {id:'',text:'', date:new Date().toLocaleDateString("en-US",dateConfig), parent:'', recipient:''};
         msg['text'] = this.text.value;
         var lastMessage = this.props.messages[this.props.messages.length - 1];
-        let parent = (lastMessage!= undefined && 'parent' in lastMessage) ? lastMessage['parent'] : '';
-        console.log(parent);
+        let parent = (lastMessage!= undefined &&  lastMessage['id']!=null) ? lastMessage['id'] :  '';
         msg['parent'] = parent;
         msg['uuid'] = uuid.v4();
+        msg['creator'] = localStorage.getItem("username");
         msg['recipient'] = this.props.selected.user;
         this.props.sendMessage(msg);
     }
@@ -58,8 +58,13 @@ class Dashboard extends React.Component{
         this.props.fetchUsers();
         Subscribe.register([
             {route: '/topic/users', callback: this.updateList},
+            {route:'/user/queue/messages', callback:this.addMessage}
         ]);
 
+    }
+
+    addMessage = (data) => {
+        this.props.receiveMessage(JSON.parse(data.body));
     }
 
     updateList = (data) => {
@@ -152,6 +157,10 @@ const mapDispatchToProps = (dispatch) => (
         ),
         sendMessage:(message) => dispatch(
             MessageActionCreator.sendMessage(message)
+        ),
+
+        receiveMessage:(message) => dispatch(
+            MessageActionCreator.receiveMessage(message)
         )
     }
 );
